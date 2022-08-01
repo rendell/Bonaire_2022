@@ -92,7 +92,7 @@ colnames(Bonaire) <- c(
 ```
 
 | Name in survey                                                                                                                                                                                                                                                                        | Code             |
-|:--------------------------------------------|:-------------------------|
+|:--------------------------------------------|:--------------------------|
 | Are you a permanent resident of Bonaire who has lived on island for more than 6 months? (if yes, continue)                                                                                                                                                                            | Q1               |
 | What is your age?                                                                                                                                                                                                                                                                     | Q2               |
 | In which neighborhood do you live?                                                                                                                                                                                                                                                    | Q3               |
@@ -181,11 +181,8 @@ Bonaire$Q2 <-
          ))
 ```
 
-
-
 ```{r}
 prop.table(table(Bonaire$Q1))
 prop.table(table(Bonaire$Q2))
 prop.table(table(Bonaire$Q3))
 ```
-
