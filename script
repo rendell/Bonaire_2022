@@ -170,6 +170,20 @@ Bonaire<- Bonaire%>%
 ```
 
 ```{r}
+Bonaire$Q2 <- 
+  ifelse((Bonaire$Q2>=15)&
+           (Bonaire$Q2 <= 25),
+         "15-25", 
+         ifelse((Bonaire$Q2 >= 26)&
+                  (Bonaire$Q2 <= 70),
+                "26-70",
+                ifelse(Bonaire$Q2> 71,"71-115","NA")
+         ))
+```
+
+
+
+```{r}
 prop.table(table(Bonaire$Q1))
 prop.table(table(Bonaire$Q2))
 prop.table(table(Bonaire$Q3))
