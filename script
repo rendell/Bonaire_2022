@@ -1,0 +1,177 @@
+---
+title: "Bonaire"
+format: html
+editor: visual
+---
+
+Date updated: 8/1/2022 Morning
+
+## Loading
+
+```{r}
+Bonaire <- read.csv("/cloud/project/Bonaire.csv")
+library(tidyverse)
+```
+
+## Cleaning
+
+Started by assigning codes to replace the long questions that were assigned as variable names.
+
+```{r}
+colnames(Bonaire) <- c(
+'Q1',
+'Q2',
+'Q3',
+'R1',
+'R2',
+'R3',
+'R4',
+'R5',
+'R6',
+'R7',
+'R8',
+'R9',
+'SP_1',
+'SB_1',
+'SP_2',
+'SB_2',
+'SP_3',
+'SB_3',
+'SP_4',
+'SB_4',
+'SP_5',
+'SB_5',
+'SP_6',
+'SB_6',
+'SP_7',
+'SB_7',
+'SP_8',
+'SB_8',
+'SP_9',
+'SB_9',
+'SP_10',
+'SB_10',
+'SP_11',
+'SB_11',
+'SP_12',
+'SB_12',
+'O1',
+'O2',
+'D1',
+'D2',
+'D3',
+'D4',
+'D5',
+'D6',
+'D7',
+'Start_time',
+'Submit_time',
+'Completion',
+'IP_adress',
+'Location',
+'DMS',
+'Channel_type',
+'Channel_name',
+'Device_ID',
+'Device_name',
+'Browser',
+'Operating_system',
+'Contact_name',
+'Contact_email',
+'Contact_mobile',
+'Contact_phone',
+'Contact_job',
+'Submission_id',
+'Time_zone',
+'Device_type',
+'Browser_language',
+'Tags',
+'Language_name',
+'Contact_date'
+)
+```
+
+| Name in survey                                                                                                                                                                                                                                                                        | Code             |
+|:--------------------------------------------|:-------------------------|
+| Are you a permanent resident of Bonaire who has lived on island for more than 6 months? (if yes, continue)                                                                                                                                                                            | Q1               |
+| What is your age?                                                                                                                                                                                                                                                                     | Q2               |
+| In which neighborhood do you live?                                                                                                                                                                                                                                                    | Q3               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- Bonaire is a safe and secure place to live for residents                                                                                                               | R1               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- There are sufficient decent jobs available for the residents                                                                                                           | R2               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- The cost of living on Bonaire is acceptable                                                                                                                            | R3               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- The island is overcrowded with tourists                                                                                                                                | R4               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- The island is overcrowded with inhabitants                                                                                                                             | R5               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- Development on Bonaire is needed to meet the needs of the residents ( e.g more jobs, more housing)                                                                     | R6               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- A portion of my income is directly or indirectly linked to the tourism industry on Bonaire                                                                             | R7               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- In general, the positive impacts of tourism on Bonaire outweigh the negative impacts                                                                                   | R8               |
+| Please rate how strongly you agree or disagree with the following statements about life on Bonaire in general- Tourism development encourages more beautification of the infrastructure and public spaces on Bonaire (e.g. nicer beaches, roads)                                      | R9               |
+| Please rate how important protecting Bonaireâ€™s natural areas and biodiversity (land and marine) are for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                                      | SP_1             |
+| Please rate how important protecting Bonaireâ€™s natural areas and biodiversity (land and marine) are for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                                            | SB_1             |
+| Please rate how important preserving Bonaireâ€™s culture and heritage (e.g. language) are for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                                                  | SP_2             |
+| Please rate how important preserving Bonaireâ€™s culture and heritage (e.g. language) are for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                                                        | SB_2             |
+| Please rate how important it is to ensure there is a strong sense of community among residents for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                                             | SP_3             |
+| Please rate how important it is to ensure there is a strong sense of community among residents for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                                                   | SB_3             |
+| Please rate how important it is to minimize potential overcrowding from tourism for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                                                            | SP_4             |
+| Please rate how important it is to minimize potential overcrowding from tourism for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                                                                  | SB_4             |
+| Please rate how important it is to manage Bonaire's growing population for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                                                                     | SP_5             |
+| Please rate how important it is to manage Bonaire's growing population for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                                                                           | SB_5             |
+| Please rate how important it is to ensure the availability of affordable and decent homes for residents for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                                    | SP_6             |
+| Please rate how important it is to ensure the availability of affordable and decent homes for residents for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                                          | SB_6             |
+| Please rate how important it is to minimize new real estate development that is not being built to meet the need for housing of current residents for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-Personally           | SP_7             |
+| Please rate how important it is to minimize new real estate development that is not being built to meet the need for housing of current residents for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-How Bonaire is doing | SB_7             |
+| Please rate how important it is to create jobs that are more stable and provide a higher source of income than those that are currently available for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-Personally           | SP_8             |
+| Please rate how important it is to create jobs that are more stable and provide a higher source of income than those that are currently available for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-How Bonaire is doing | SB_8             |
+| Please rate how important it is to improve road infrastructure for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                                                                             | SP_9             |
+| Please rate how important it is to improve road infrastructure for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                                                                                   | SB_9             |
+| Please rate how important it is to improve public infrastructure (such as utilities, waste collection, street lighting, etc) for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-Personally                                | SP_10            |
+| Please rate how important it is to improve public infrastructure (such as utilities, waste collection, street lighting, etc) for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-How Bonaire is doing                      | SB_10            |
+| Please rate how important it is to ensure greater community safety and reducing incidence of crime and delincuency for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -Personally                                         | SP_11            |
+| Please rate how important it is to ensure greater community safety and reducing incidence of crime and delincuency for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions. -How Bonaire is doing                               | SB_11            |
+| Please rate how important it is to involve residents in Bonaire's development planning and policy for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-Personally                                                           | SP_12            |
+| Please rate how important it is to involve residents in Bonaire's development planning and policy for you personally to improve your quality of life and rate how well Bonaire is doing achieving these actions.-How Bonaire is doing                                                 | SB_12            |
+| What concerns do you have about current developments on Bonaire?                                                                                                                                                                                                                      | O1               |
+| How would you like to see Bonaire develop in the next 5-10 years?                                                                                                                                                                                                                     | O2               |
+| What is your gender?                                                                                                                                                                                                                                                                  | D1               |
+| What is the main language spoken at your home?                                                                                                                                                                                                                                        | D2               |
+| Were you born on Bonaire?                                                                                                                                                                                                                                                             | D3               |
+| Where were you born?                                                                                                                                                                                                                                                                  | D4               |
+| How many years have you lived on Bonaire?                                                                                                                                                                                                                                             | D5               |
+| What is your current employment status?                                                                                                                                                                                                                                               | D6               |
+| What is the highest degree or level of education that you have completed?                                                                                                                                                                                                             | D7               |
+| Started Time                                                                                                                                                                                                                                                                          | Start_time       |
+| Submitted Time                                                                                                                                                                                                                                                                        | Submit_time      |
+| CompletionStatus                                                                                                                                                                                                                                                                      | Completion       |
+| IP Address                                                                                                                                                                                                                                                                            | IP_adress        |
+| Location                                                                                                                                                                                                                                                                              | Location         |
+| DMS (Lat, Long)                                                                                                                                                                                                                                                                       | DMS              |
+| Channel Type                                                                                                                                                                                                                                                                          | Channel_type     |
+| Channel Name                                                                                                                                                                                                                                                                          | Channel_name     |
+| Device ID                                                                                                                                                                                                                                                                             | Device_ID        |
+| Device Name                                                                                                                                                                                                                                                                           | Device_name      |
+| Browser                                                                                                                                                                                                                                                                               | Browser          |
+| OS                                                                                                                                                                                                                                                                                    | Operating_system |
+| Contact Name                                                                                                                                                                                                                                                                          | Contact_name     |
+| Contact Email                                                                                                                                                                                                                                                                         | Contact_email    |
+| Contact Mobile                                                                                                                                                                                                                                                                        | Contact_mobile   |
+| Contact Phone                                                                                                                                                                                                                                                                         | Contact_phone    |
+| Contact Job Title                                                                                                                                                                                                                                                                     | Contact_job      |
+| Submission Id                                                                                                                                                                                                                                                                         | Submission_id    |
+| Time Zone                                                                                                                                                                                                                                                                             | Time_zone        |
+| Device Type                                                                                                                                                                                                                                                                           | Device_type      |
+| Browser Language                                                                                                                                                                                                                                                                      | Browser_language |
+| Tags                                                                                                                                                                                                                                                                                  | Tags             |
+| Language Name                                                                                                                                                                                                                                                                         | Language_name    |
+| Contact Created Date                                                                                                                                                                                                                                                                  | Contact_date     |
+
+```{r}
+Bonaire<- Bonaire%>% 
+  as_tibble()%>%
+  filter(Completion=="Completed")
+```
+
+```{r}
+prop.table(table(Bonaire$Q1))
+prop.table(table(Bonaire$Q2))
+prop.table(table(Bonaire$Q3))
+```
+
