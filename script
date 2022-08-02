@@ -7,7 +7,11 @@ toc-location: left
 editor: visual
 ---
 
-*Updated: 8/1/2022*
+*Updated:*
+```{r,echo=FALSE}
+Sys.Date()
+```
+
 
 **Rendell de Kort & Kareline van der Linden**
 
@@ -27,7 +31,7 @@ library(rmarkdown)
 
 Started by assigning codes to replace the long questions that were assigned as variable names.
 
-```{r}
+```{r, echo=FALSE}
 colnames(Bonaire) <- c(
 'Q1',
 'Q2',
@@ -185,8 +189,6 @@ Bonaire<- Bonaire%>%
 
 The age variable in the survey is defined as a numerical field. For analysis we convert the data into intervals. categories still have to be properly defined and perhaps we will create some alternatives.
 
-40-59 60-79 80+
-
 ```{r}
 Bonaire$Q2 <- 
   ifelse((Bonaire$Q2>=15)&
@@ -210,7 +212,16 @@ Bonaire$Q2 <-
 ### Qualifying questions
 
 ```{r}
-prop.table(table(Bonaire$Q1))
-table(Bonaire$Q2)
-table(Bonaire$Q3)
+Q1 <- data.frame(prop.table(table(Bonaire$Q1)))
+Q2 <- data.frame(table(Bonaire$Q2))
+Q3 <- data.frame(table(Bonaire$Q3))
+
+as_tibble(Q1) # Permanent resident of Bonaire
+as_tibble(Q2) # Age groups
+as_tibble(Q3) # Neighborhood
+```
+
+```{r}
+write.csv(Q2,"Q2.csv", row.names = FALSE)
+write.csv(Q3,"Q3.csv", row.names = FALSE)
 ```
