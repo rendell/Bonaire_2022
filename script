@@ -20,6 +20,7 @@ The data file Bonaire is to be refreshed daily by downloading a csv. file from s
 ```{r, message=FALSE, warning=FALSE}
 Bonaire <- read.csv("/cloud/project/Bonaire.csv")
 library(tidyverse)
+library(rmarkdown)
 ```
 
 ## Cleaning
@@ -103,7 +104,7 @@ colnames(Bonaire) <- c(
 The following variables were coded for the online version of the survey:
 
 | Name in survey                                                                                                                                                                                                                                                                        | Code             |
-|:----------------------------------------------------|:------------------|
+|:---------------------------------------------------|:-------------------|
 | Are you a permanent resident of Bonaire who has lived on island for more than 6 months? (if yes, continue)                                                                                                                                                                            | Q1               |
 | What is your age?                                                                                                                                                                                                                                                                     | Q2               |
 | In which neighborhood do you live?                                                                                                                                                                                                                                                    | Q3               |
@@ -184,23 +185,32 @@ Bonaire<- Bonaire%>%
 
 The age variable in the survey is defined as a numerical field. For analysis we convert the data into intervals. categories still have to be properly defined and perhaps we will create some alternatives.
 
+40-59 60-79 80+
+
 ```{r}
 Bonaire$Q2 <- 
   ifelse((Bonaire$Q2>=15)&
-           (Bonaire$Q2 <= 25),
-         "15-25", 
-         ifelse((Bonaire$Q2 >= 26)&
-                  (Bonaire$Q2 <= 70),
-                "26-70",
-                ifelse(Bonaire$Q2> 71,"71-115","NA")
-         ))
+           (Bonaire$Q2 <= 19),
+         "15-19", 
+  ifelse((Bonaire$Q2 >= 20)&
+                  (Bonaire$Q2 <= 39),
+                "20-39",
+  ifelse((Bonaire$Q2 >= 40)&
+                  (Bonaire$Q2 <= 59),
+                "40-59",
+  ifelse((Bonaire$Q2 >= 60)&
+                  (Bonaire$Q2 <= 79),
+                "60-79",       
+                ifelse(Bonaire$Q2> 80,"80+","NA")
+         ))))
 ```
 
 ## Tabulating
 
 ### Qualifying questions
+
 ```{r}
 prop.table(table(Bonaire$Q1))
-prop.table(table(Bonaire$Q2))
-prop.table(table(Bonaire$Q3))
+table(Bonaire$Q2)
+table(Bonaire$Q3)
 ```
