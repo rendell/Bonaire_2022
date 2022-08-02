@@ -1,14 +1,21 @@
 ---
-title: "Bonaire"
+title: "Bonaire data processing"
 format: html
 editor: visual
 ---
 
-Date updated: 8/1/2022 Morning
+
+Date updated: 8/1/2022
+
+Rendell de Kort & Kareline van der Linden
+
+![](banner3.jpg)
 
 ## Loading
 
-```{r}
+The data file Bonaire is to be refreshed daily by downloading a csv. file from surveysparrow and uploading it onto the Rstudio cloud workbench.
+
+```{r, message=FALSE, warning=FALSE}
 Bonaire <- read.csv("/cloud/project/Bonaire.csv")
 library(tidyverse)
 ```
@@ -91,8 +98,10 @@ colnames(Bonaire) <- c(
 )
 ```
 
+The following variables were coded for the online version of the survey:
+
 | Name in survey                                                                                                                                                                                                                                                                        | Code             |
-|:--------------------------------------------|:--------------------------|
+|:-----------------------------------------------------|:-----------------|
 | Are you a permanent resident of Bonaire who has lived on island for more than 6 months? (if yes, continue)                                                                                                                                                                            | Q1               |
 | What is your age?                                                                                                                                                                                                                                                                     | Q2               |
 | In which neighborhood do you live?                                                                                                                                                                                                                                                    | Q3               |
@@ -161,14 +170,18 @@ colnames(Bonaire) <- c(
 | Browser Language                                                                                                                                                                                                                                                                      | Browser_language |
 | Tags                                                                                                                                                                                                                                                                                  | Tags             |
 | Language Name                                                                                                                                                                                                                                                                         | Language_name    |
-| Contact Created Date                                                                                                                                                                                                                                                                  | Contact_date     |
+| Contact Created Date         
 
+
+The dataset is passed in the "tibble" format and incomplete submissions are filtered out.
 ```{r}
 Bonaire<- Bonaire%>% 
   as_tibble()%>%
   filter(Completion=="Completed")
 ```
 
+
+The age variable in the survey is defined as a numerical field. For analysis we convert the data into intervals.
 ```{r}
 Bonaire$Q2 <- 
   ifelse((Bonaire$Q2>=15)&
@@ -181,6 +194,10 @@ Bonaire$Q2 <-
          ))
 ```
 
+
+## Tabulating
+
+### Qualifying questions
 ```{r}
 prop.table(table(Bonaire$Q1))
 prop.table(table(Bonaire$Q2))
