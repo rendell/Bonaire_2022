@@ -9,7 +9,7 @@ editor: visual
 
 *Updated:*
 ```{r,echo=FALSE}
-Sys.Date()
+Sys.time()
 ```
 
 
@@ -17,14 +17,35 @@ Sys.Date()
 
 ![](banner3.jpg)
 
+## Summary
+Total surveys collected:
+```{r}
+Bonaire %>% count()
+```
+
+Online collected:
+```{r}
+sum(is.na(Bonaire$Device_name))
+```
+Offline collected:
+```{r}
+Bonaire %>% count()- sum(is.na(Bonaire$Device_name))
+```
+
 ## Loading
 
-The data file Bonaire is to be refreshed daily by downloading a csv. file from surveysparrow and uploading it onto the Rstudio cloud workbench.
+The data file Bonaire is to be refreshed daily by downloading two .csv files from Surveysparrow and uploading it onto the Rstudio cloud workbench. The files are for the online version and offline versions of the same survey.
 
 ```{r, message=FALSE, warning=FALSE}
-Bonaire <- read.csv("/cloud/project/Bonaire.csv")
+# Online data
+Online_Bonaire <- read.csv("/cloud/project/Online_Bonaire.csv")
+
+# Offline data
+Offline_Bonaire <-read.csv("/cloud/project/Offline_Bonaire.csv")
+
 library(tidyverse)
 library(rmarkdown)
+library(dplyr)
 ```
 
 ## Cleaning
@@ -32,7 +53,7 @@ library(rmarkdown)
 Started by assigning codes to replace the long questions that were assigned as variable names.
 
 ```{r, echo=FALSE}
-colnames(Bonaire) <- c(
+colnames(Online_Bonaire) <- c(
 'Q1',
 'Q2',
 'Q3',
@@ -103,6 +124,85 @@ colnames(Bonaire) <- c(
 'Language_name',
 'Contact_date'
 )
+
+colnames(Offline_Bonaire) <- c(
+'Q1',
+'Q2',
+'Q3',
+'R1',
+'R2',
+'R3',
+'R4',
+'R5',
+'R6',
+'R7',
+'R8',
+'R9',
+'SP_1',
+'SB_1',
+'SP_2',
+'SB_2',
+'SP_3',
+'SB_3',
+'SP_4',
+'SB_4',
+'SP_5',
+'SB_5',
+'SP_6',
+'SB_6',
+'SP_7',
+'SB_7',
+'SP_8',
+'SB_8',
+'SP_9',
+'SB_9',
+'SP_10',
+'SB_10',
+'SP_11',
+'SB_11',
+'SP_12',
+'SB_12',
+'O1',
+'O2',
+'D1',
+'D2',
+'D3',
+'D4',
+'D5',
+'D6',
+'D7',
+'Start_time',
+'Submit_time',
+'Completion',
+'IP_adress',
+'Location',
+'DMS',
+'Channel_type',
+'Channel_name',
+'Device_ID',
+'Device_name',
+'Browser',
+'Operating_system',
+'Contact_name',
+'Contact_email',
+'Contact_mobile',
+'Contact_phone',
+'Contact_job',
+'Submission_id',
+'Time_zone',
+'Device_type',
+'Browser_language',
+'Tags',
+'Language_name',
+'Contact_date'
+)
+
+# Merging Offline and Online observations in a single file.
+Bonaire <-bind_rows(Offline_Bonaire,Online_Bonaire)
+
+# Removing individual files.
+rm(Offline_Bonaire)
+rm(Online_Bonaire)
 ```
 
 The following variables were coded for the online version of the survey:
@@ -216,12 +316,24 @@ Q1 <- data.frame(prop.table(table(Bonaire$Q1)))
 Q2 <- data.frame(table(Bonaire$Q2))
 Q3 <- data.frame(table(Bonaire$Q3))
 
-as_tibble(Q1) # Permanent resident of Bonaire
-as_tibble(Q2) # Age groups
-as_tibble(Q3) # Neighborhood
+Q1 <- Bonaire %>% count(Q1, sort = TRUE)
+Q2 <- Bonaire %>% count(Q2, sort = TRUE)
+Q3 <- Bonaire %>% count(Q3, sort = TRUE)
+
+Q1
+Q2
+Q3
 ```
+
+```{r}
+Device_name <-data.frame(table(Bonaire$Device_name))
+as_tibble(Device_name, sort=TRUE)
+```
+
+
 
 ```{r}
 write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
 ```
+
