@@ -17,21 +17,6 @@ Sys.time()
 
 ![](banner3.jpg)
 
-## Summary
-Total surveys collected:
-```{r}
-Bonaire %>% count()
-```
-
-Online collected:
-```{r}
-sum(is.na(Bonaire$Device_name))
-```
-Offline collected:
-```{r}
-Bonaire %>% count()- sum(is.na(Bonaire$Device_name))
-```
-
 ## Loading
 
 The data file Bonaire is to be refreshed daily by downloading two .csv files from Surveysparrow and uploading it onto the Rstudio cloud workbench. The files are for the online version and offline versions of the same survey.
@@ -46,6 +31,7 @@ Offline_Bonaire <-read.csv("/cloud/project/Offline_Bonaire.csv")
 library(tidyverse)
 library(rmarkdown)
 library(dplyr)
+library(knitr)
 ```
 
 ## Cleaning
@@ -309,6 +295,22 @@ Bonaire$Q2 <-
 
 ## Tabulating
 
+```{r, echo=FALSE}
+print('Total surveys collected: ')
+print(nrow(Bonaire))
+```
+
+```{r, echo=FALSE}
+print('Online surveys collected: ')
+print(sum(is.na(Bonaire$Device_name)))
+```
+
+```{r, echo=FALSE}
+print('Offline surveys collected: ')
+print(nrow(Bonaire)-sum(is.na(Bonaire$Device_name)))
+```
+
+
 ### Qualifying questions
 
 ```{r}
@@ -336,4 +338,3 @@ as_tibble(Device_name, sort=TRUE)
 write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
 ```
-
