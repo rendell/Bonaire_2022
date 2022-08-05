@@ -28,10 +28,11 @@ Online_Bonaire <- read.csv("/cloud/project/Online_Bonaire.csv")
 # Offline data
 Offline_Bonaire <-read.csv("/cloud/project/Offline_Bonaire.csv")
 
+# Load packages
 library(tidyverse)
 library(rmarkdown)
-library(dplyr)
-library(knitr)
+library(OpenStreetMap)
+library(ggmap)
 ```
 
 ## Cleaning
@@ -314,7 +315,7 @@ print(nrow(Bonaire)-sum(is.na(Bonaire$Device_name)))
 ### Qualifying questions
 
 ```{r}
-Q1 <- data.frame(prop.table(table(Bonaire$Q1)))
+Q1 <- data.frame(table(Bonaire$Q1))
 Q2 <- data.frame(table(Bonaire$Q2))
 Q3 <- data.frame(table(Bonaire$Q3))
 
@@ -333,8 +334,35 @@ as_tibble(Device_name, sort=TRUE)
 ```
 
 
+#### Map
+Intention to vizualize Bonaire map with offline survey responses.
+```{r, echo=FALSE}
+Bonmap <- get_stamenmap(bbox = c(left = -68.44559, 
+                                    bottom = 12.02113, 
+                                    right = -68.17368, 
+                                    top = 12.32318),
+                           zoom = 12, 
+                           maptype = "watercolor")
+ggmap(Bonmap)
+```
+
+Still need to link up with the observations
+```{r, echo=FALSE, eval=FALSE}
+ggmap(Bonmap) + # the base map
+  geom_jitter(position = position_jitter(width = 0.003, height = 0.003),
+              data = df, aes(x = x, y = y), 
+             color = "#fc8b9b",
+             alpha = 7/10)+
+  ggtitle("Individual survey responses")  +  
+  theme_void()+
+  theme(plot.title = element_text(color="#fc8b9b", size=14, face="bold.italic"),
+        axis.title.x = element_blank(),
+  axis.title.y = element_blank()
+  )
+```
 
 ```{r}
 write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
 ```
+
