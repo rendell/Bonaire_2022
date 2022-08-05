@@ -336,7 +336,7 @@ as_tibble(Device_name, sort=TRUE)
 
 #### Map
 Intention to vizualize Bonaire map with offline survey responses.
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, comment=FALSE}
 Bonmap <- get_stamenmap(bbox = c(left = -68.44559, 
                                     bottom = 12.02113, 
                                     right = -68.17368, 
@@ -365,4 +365,5 @@ ggmap(Bonmap) + # the base map
 write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
 ```
+
 
