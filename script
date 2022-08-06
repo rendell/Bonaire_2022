@@ -33,6 +33,7 @@ library(tidyverse)
 library(rmarkdown)
 library(OpenStreetMap)
 library(ggmap)
+library(parzer)
 ```
 
 ## Cleaning
@@ -294,6 +295,17 @@ Bonaire$Q2 <-
          ))))
 ```
 
+```{r}
+Bonaire <-Bonaire %>% separate(DMS, c('Long', 'Lat'),",",remove=FALSE)
+```
+### Q3 manual intervention
+```{r}
+Q3_cleaning <-Bonaire%>%select(Q3, Submission_id)
+write.csv(Q3_cleaning,"Q3_cleaning.csv", row.names = FALSE)
+```
+
+
+
 ## Tabulating
 
 ```{r, echo=FALSE}
@@ -348,6 +360,8 @@ ggmap(Bonmap)
 
 Still need to link up with the observations
 ```{r, echo=FALSE, eval=FALSE}
+
+
 ggmap(Bonmap) + # the base map
   geom_jitter(position = position_jitter(width = 0.003, height = 0.003),
               data = df, aes(x = x, y = y), 
@@ -365,5 +379,3 @@ ggmap(Bonmap) + # the base map
 write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
 ```
-
-
