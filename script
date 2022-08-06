@@ -296,7 +296,12 @@ Bonaire$Q2 <-
 ```
 
 ```{r}
-Bonaire <-Bonaire %>% separate(DMS, c('Long', 'Lat'),",",remove=FALSE)
+Bonaire <- Bonaire %>% separate(DMS, c('Long', 'Lat'),",",remove=FALSE)
+
+Bonaire <- Bonaire %>%
+  mutate(Long = parzer::parse_lon(Long),
+         Lat = parzer::parse_lat(Lat))
+# parzer not working yet.
 ```
 ### Q3 manual intervention
 ```{r}
