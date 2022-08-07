@@ -303,11 +303,13 @@ Bonaire <- Bonaire %>%
          Lat = parzer::parse_lat(Lat))
 # parzer not working yet.
 ```
-### Q3 manual intervention
+### Q3
 ```{r}
 Q3_cleaning <-Bonaire%>%select(Q3, Submission_id)
 write.csv(Q3_cleaning,"Q3_cleaning.csv", row.names = FALSE)
 ```
+
+### SP_1
 
 
 
@@ -380,6 +382,13 @@ ggmap(Bonmap) + # the base map
   )
 ```
 
+#### Statements
+```{r}
+table(Bonaire$R1)
+```
+
+
+## Writing files
 ```{r}
 write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
