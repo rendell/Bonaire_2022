@@ -273,6 +273,9 @@ The dataset is passed in the "tibble" format and incomplete submissions are filt
 Bonaire<- Bonaire%>% 
   as_tibble()%>%
   filter(Completion=="Completed")
+
+##%>%
+##  distinct(IP_adress, .keep_all= TRUE)
 ```
 
 The age variable in the survey is defined as a numerical field. For analysis we convert the data into intervals. categories still have to be properly defined and perhaps we will create some alternatives.
@@ -281,7 +284,7 @@ The age variable in the survey is defined as a numerical field. For analysis we 
 Bonaire$Q2 <- 
   ifelse((Bonaire$Q2>=15)&
            (Bonaire$Q2 <= 19),
-         "15-19", 
+         "15-19",
   ifelse((Bonaire$Q2 >= 20)&
                   (Bonaire$Q2 <= 39),
                 "20-39",
@@ -309,6 +312,19 @@ Q3_cleaning <-Bonaire%>%select(Q3, Submission_id)
 write.csv(Q3_cleaning,"Q3_cleaning.csv", row.names = FALSE)
 ```
 
+
+### IP frequency
+```{r}
+IP_frequency <- sort(table(Bonaire$IP_adress),decreasing=T)
+```
+
+
+### Language
+```{r}
+table(Bonaire$Language_name)
+```
+
+  
 ### SP_1
 
 
