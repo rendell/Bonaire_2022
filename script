@@ -308,8 +308,11 @@ Bonaire <- Bonaire %>%
 ```
 ### Q3
 ```{r}
-Q3_cleaning <-Bonaire%>%select(Q3, Submission_id)
-write.csv(Q3_cleaning,"Q3_cleaning.csv", row.names = FALSE)
+Cleaning <-Bonaire%>%select(Q3,
+                            O1,
+                            O2,
+                            Submission_id)
+write.csv(Cleaning,"cleaning_set.csv", row.names = FALSE)
 ```
 
 
@@ -353,14 +356,20 @@ print(nrow(Bonaire)-sum(is.na(Bonaire$Device_name)))
 Q1 <- data.frame(table(Bonaire$Q1))
 Q2 <- data.frame(table(Bonaire$Q2))
 Q3 <- data.frame(table(Bonaire$Q3))
+D3 <- data.frame(table(Bonaire$D3))
+D4 <- data.frame(table(Bonaire$D4))
 
 Q1 <- Bonaire %>% count(Q1, sort = TRUE)
 Q2 <- Bonaire %>% count(Q2, sort = TRUE)
 Q3 <- Bonaire %>% count(Q3, sort = TRUE)
+D3 <- Bonaire %>% count(D3, sort = TRUE)
+D4 <- Bonaire %>% count(D4, sort = TRUE)
 
 Q1
 Q2
 Q3
+D3 #Where you born on Bonaire?
+D4
 ```
 
 ```{r}
@@ -400,7 +409,61 @@ ggmap(Bonmap) + # the base map
 
 #### Statements
 ```{r}
-table(Bonaire$R1)
+Bonaire$R1 <-recode_factor(Bonaire$R1,
+                           "Strongly agree"="Strongly Agree",
+                           "Neutral"="",
+                           "Strongly disagree"="Strongly Disagree"
+                             )
+
+Bonaire%>%
+  count(R1, sort=TRUE)
+
+Bonaire$R2 <-recode_factor(Bonaire$R2,
+                           "Strongly agree"="Strongly Agree",
+                           "Neutral"="",
+                           "Strongly disagree"="Strongly Disagree"
+                             )
+
+Bonaire%>%
+  count(R2, sort=TRUE)
+
+Bonaire$R3 <-recode_factor(Bonaire$R3,
+                           "Strongly agree"="Strongly Agree",
+                           "Neutral"="",
+                           "Strongly disagree"="Strongly Disagree"
+                             )
+
+Bonaire%>%
+  count(R3, sort=TRUE)
+
+
+Bonaire$R4 <-recode_factor(Bonaire$R4,
+                           "Strongly agree"="Strongly Agree",
+                           "Neutral"="",
+                           "Strongly disagree"="Strongly Disagree"
+                             )
+
+Bonaire%>%
+  count(R4, sort=TRUE)
+```
+
+#### SP
+```{r}
+SP<-Bonaire%>% select(SP_1,
+                      SP_2,
+                      SP_3,
+                      SP_4,
+                      SP_5,
+                      SP_6,
+                      SP_7,
+                      SP_8,
+                      SP_9,
+                      SP_10,
+                      SP_11,
+                      SP_12
+                      )
+
+
 ```
 
 
@@ -408,4 +471,6 @@ table(Bonaire$R1)
 ```{r}
 write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
+write.csv(D3,"D3.csv", row.names = FALSE)
+write.csv(D4,"D4.csv", row.names = FALSE)
 ```
