@@ -473,4 +473,154 @@ write.csv(Q2,"Q2.csv", row.names = FALSE)
 write.csv(Q3,"Q3.csv", row.names = FALSE)
 write.csv(D3,"D3.csv", row.names = FALSE)
 write.csv(D4,"D4.csv", row.names = FALSE)
+
 ```
+Netherlands	3585	16%
+Aruba, St Maarten, Curacao +Saba, Stacia 	4669	21%
+Born outside Kingdom of the Netherlands	6453	29
+Bonaire	7866	35%
+```{r}
+table(Bonaire$D3)
+table(Bonaire$D4)
+```
+223/(551+223)
+[1] 0.2881137 -Bonaire born represents 28.8% 
+245/(551+223)
+[1] 0.3165375 - Netherlands born represents 31.6%
+112/(551+223)
+[1] 0.1447028 - Dutch Caribbean (Aruba, St. Maarten, St. Eustacia, Curacao) born represents 14.4%
+100-(28.8+31.6+14.4)
+[1] 25.2 - Rest of the World represents 25.2%
+```{r}
+Sample_Bonaire<-c(28.8, 31.6,14.4,25.2)
+country_birth<-c("Bonaire","Netherlands","Dutch Caribbean","Rest of the world")
+Population_Bonaire<-c(35,16,21,29)
+table_countrybirth<-as_tibble(cbind(country_birth,Population_Bonaire,Sample_Bonaire))
+
+```
+
+```{r}
+Bonaire$weight<-
+  ifelse((Bonaire$D3=="Yes"),0.35,
+ifelse((Bonaire$D4=="Netherlands"),0.16,
+ ifelse((Bonaire$D4=="Aruba"),0.21,      
+ifelse((Bonaire$D4=="St. Maarten"),0.21,
+       ifelse((Bonaire$D4=="Curacao"),0.21,
+ifelse((Bonaire$D4=="Saba"),0.21,
+ifelse((Bonaire$D4=="St.Eustatius"),0.21,
+       ifelse((Bonaire$D4==""),"",       
+              0.29)
+)))))))
+
+
+```
+
+```{r}
+Bonaire$SP_1<-as.numeric(Bonaire$SP_1)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_1_w<-Bonaire$SP_1*Bonaire$weight
+mean(Bonaire$SP_1_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_2<-as.numeric(Bonaire$SP_2)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_2_w<-Bonaire$SP_2*Bonaire$weight
+mean(Bonaire$SP_2_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_3<-as.numeric(Bonaire$SP_3)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_3_w<-Bonaire$SP_3*Bonaire$weight
+mean(Bonaire$SP_3_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_4<-as.numeric(Bonaire$SP_4)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_4_w<-Bonaire$SP_4*Bonaire$weight
+mean(Bonaire$SP_4_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_5<-as.numeric(Bonaire$SP_5)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_5_w<-Bonaire$SP_5*Bonaire$weight
+mean(Bonaire$SP_5_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_6<-as.numeric(Bonaire$SP_6)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_6_w<-Bonaire$SP_6*Bonaire$weight
+mean(Bonaire$SP_6_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_7<-as.numeric(Bonaire$SP_7)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_7_w<-Bonaire$SP_7*Bonaire$weight
+mean(Bonaire$SP_7_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_8<-as.numeric(Bonaire$SP_8)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_8_w<-Bonaire$SP_8*Bonaire$weight
+mean(Bonaire$SP_8_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SP_9<-as.numeric(Bonaire$SP_9)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SP_9_w<-Bonaire$SP_9*Bonaire$weight
+mean(Bonaire$SP_9_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_1<-as.numeric(Bonaire$SB_1)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_1_w<-Bonaire$SB_1*Bonaire$weight
+mean(Bonaire$SB_1_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_2<-as.numeric(Bonaire$SB_2)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_2_w<-Bonaire$SB_2*Bonaire$weight
+mean(Bonaire$SB_2_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_3<-as.numeric(Bonaire$SB_3)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_3_w<-Bonaire$SB_3*Bonaire$weight
+mean(Bonaire$SB_3_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_5<-as.numeric(Bonaire$SB_5)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_5_w<-Bonaire$SB_5*Bonaire$weight
+mean(Bonaire$SB_5_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_4<-as.numeric(Bonaire$SB_4)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_4_w<-Bonaire$SB_4*Bonaire$weight
+mean(Bonaire$SB_4_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_6<-as.numeric(Bonaire$SB_6)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_6_w<-Bonaire$SB_6*Bonaire$weight
+mean(Bonaire$SB_6_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_7<-as.numeric(Bonaire$SB_7)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_7_w<-Bonaire$SB_7*Bonaire$weight
+mean(Bonaire$SB_7_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_8<-as.numeric(Bonaire$SB_8)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_8_w<-Bonaire$SB_8*Bonaire$weight
+mean(Bonaire$SB_8_w, na.rm = TRUE)
+```
+```{r}
+Bonaire$SB_9<-as.numeric(Bonaire$SB_9)
+Bonaire$weight<-as.numeric(Bonaire$weight)
+Bonaire$SB_9_w<-Bonaire$SB_9*Bonaire$weight
+mean(Bonaire$SB_9_w, na.rm = TRUE)
+```
+
