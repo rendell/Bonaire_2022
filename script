@@ -272,7 +272,8 @@ The dataset is passed in the "tibble" format and incomplete submissions are filt
 ```{r}
 Bonaire<- Bonaire%>% 
   as_tibble()%>%
-  filter(Completion=="Completed")
+  filter(Completion=="Completed")%>% 
+  filter(!is.na(Q2))
 
 ##%>%
 ##  distinct(IP_adress, .keep_all= TRUE)
@@ -368,7 +369,7 @@ D4 <- Bonaire %>% count(D4, sort = TRUE)
 Q1
 Q2
 Q3
-D3 #Where you born on Bonaire?
+D3 # Where you born on Bonaire?
 D4
 ```
 
@@ -498,6 +499,9 @@ Population_Bonaire<-c(35,16,21,29)
 table_countrybirth<-as_tibble(cbind(country_birth,Population_Bonaire,Sample_Bonaire))
 
 ```
+
+
+# Weights
 
 ```{r}
 Bonaire$weight<-
