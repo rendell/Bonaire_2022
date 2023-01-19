@@ -1,0 +1,27 @@
+---
+title: "Bonaire survey results"
+format: html
+editor: visual
+---
+
+```{r}
+library(foreign)
+dataset <- read.spss("C:\\Users\\Rendell CE\\Documents\\Bonaire\\Bonaire dataset2.sav", to.data.frame=TRUE)
+dataset<- as_tibble(dataset)
+
+dataset$Q3<- as.factor(dataset$Q3)
+table(dataset$Q3)
+write.csv(table(dataset$Q3),file = "areas.csv")
+```
+
+
+Etnic make up dominated areas by the Netherlands and Bonaire.
+Defined inhabitants in the area by country of birth superceeding 60%.
+
+The Netherlands: Santa Barbara, Lagun Hill, Sabadeco, Lima
+
+Bonaire: Rincon Zuid, Rincon Noord
+
+
+
+
