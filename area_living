@@ -8,20 +8,62 @@ editor: visual
 ```{r}
 library(foreign)
 library(tidyverse)
+library(forcats)
 dataset <- read.spss("C:\\Users\\Rendell CE\\Documents\\Bonaire\\Bonaire dataset2.sav", to.data.frame=TRUE)
 dataset<- as_tibble(dataset)
 
-dataset$Q3<- as.factor(dataset$Q3)
-table(dataset$Q3)
-write.csv(table(dataset$Q3),file = "areas.csv")
+
+dataset$Q3 <- as.character(dataset$Q3)
+dataset$Q3 <- str_trim(dataset$Q3)
+dataset$Q3 <- as.factor(dataset$Q3)
 ```
 
 Factor re-code
 ```{r}
 dataset$Q3<- fct_recode(dataset$Q3,
-                        "Den stashi"="Antriol Pariba",
-                        "Den tera"="Antriol Pabou",
-                        "Finca Verde","Hato"
+                        "Entrejol Pariba"   ="Den stashi",
+                        "Entrejol Pabou"    ="Den tera",
+                        "Noord Salina"      ="Finca Verde",
+                        "Entrejol Pabou"    ="kralendijk",
+                        "Tera Kora"         ="New Amsterdam",
+                        "Santa Barbara"     ="Republiek",
+                        "Santa Barbara"     ="Republik",
+                        "Noord Salina"      ="Trai montaÃ±a",
+                        "Noord Salina"      ="Tras di montaÃ±a",
+                        "Noord Salina"      ="tras montana",
+                        "Entrejol Pabou"    ="Antriol Pabou",
+                        "Entrejol Pariba"   ="Antriol Pariba",
+                        "Unknown"           ="Bara di karta",
+                        "Unknown"           ="Bolivia",
+                        "Unknown"           ="Bolivia, luga alehÃ¡",
+                        "Unknown"           ="Bona bista",
+                        "Unknown"           ="Bona Bista",
+                        "Unknown"           ="Bonabista",
+                        "Unknown"           ="Buena Vista",
+                        "Unknown"           ="ergens anders",
+                        "Unknown"           ="LugÃ¡ AlehÃ¡, Bolivia",
+                        "Unknown"           ="No address",
+                        "Unknown"           ="Riba seru",
+                        "Unknown"           ="Seru kima",
+                        "Unknown"           ="Tanki matrimonio",
+                        "Unknown"           ="Washikemba",
+                        "Sabadeco"          ="Saba deco"
                         )
 ```
 
+```{r}
+table(dataset$Q3)
+write.csv(table(dataset$Q3),file = "areas.csv")
+```
+
+
+
+
+
+
+Etnic make up dominated areas by the Netherlands and Bonaire.
+Defined inhabitants in the area by country of birth superceeding 60%.
+
+The Netherlands: Santa Barbara, Lagun Hill, Sabadeco, Lima
+
+Bonaire: Rincon Zuid, Rincon Noord
