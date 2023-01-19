@@ -55,15 +55,3 @@ dataset$Q3<- fct_recode(dataset$Q3,
 table(dataset$Q3)
 write.csv(table(dataset$Q3),file = "areas.csv")
 ```
-
-
-
-
-
-
-Etnic make up dominated areas by the Netherlands and Bonaire.
-Defined inhabitants in the area by country of birth superceeding 60%.
-
-The Netherlands: Santa Barbara, Lagun Hill, Sabadeco, Lima
-
-Bonaire: Rincon Zuid, Rincon Noord
